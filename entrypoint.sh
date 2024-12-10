@@ -2,6 +2,32 @@
 
 set -euo pipefail
 
+AVALANCHEGO_DATA_DIR=${AVALANCHEGO_DATA_DIR:-$HOME/.avalanchego}
+
+# Set default plugin dir if not set
+if [ -z "${AVALANCHEGO_PLUGIN_DIR:-}" ]; then
+    export AVALANCHEGO_PLUGIN_DIR="/plugins/"
+fi
+
+# Create data directory if it doesn't exist
+mkdir -p $AVALANCHEGO_DATA_DIR/db/
+
+
+# This speeds up the node startup time
+if [ -z "$(ls -A $AVALANCHEGO_DATA_DIR/db/)" ]; then
+    echo "Downloading latest testnet P-Chain data..."
+    wget -q -O $AVALANCHEGO_DATA_DIR/fuji-latest.tar https://avalanchego-public-database.avax-test.network/p-chain/avalanchego/data-tar/latest.tar
+    echo "Extracting latest testnet P-Chain data..."
+    tar -xf "$AVALANCHEGO_DATA_DIR/fuji-latest.tar" -C $AVALANCHEGO_DATA_DIR/db/
+fi
+
+# Write BLS key if provided
+if [ -n "${BLS_KEY_BASE64:-}" ]; then
+    mkdir -p "$AVALANCHEGO_DATA_DIR/staking"
+    echo "$BLS_KEY_BASE64" | base64 -d > "$AVALANCHEGO_DATA_DIR/staking/signer.key"
+fi
+
+
 # Function to convert ENV vars to flags
 get_avalanchego_flags() {
     local flags=""
@@ -17,25 +43,8 @@ get_avalanchego_flags() {
     echo "$flags"
 }
 
-
-# Get flags from environment variables
 EXTRA_FLAGS=$(get_avalanchego_flags)
-
-# Set default plugin dir if not set
-if [ -z "${AVALANCHEGO_PLUGIN_DIR:-}" ]; then
-    export AVALANCHEGO_PLUGIN_DIR="/plugins/"
-fi
-
 echo "Extra flags: $EXTRA_FLAGS"
-
-# Create data directory if it doesn't exist
-mkdir -p $AVALANCHEGO_DATA_DIR/db/
-
-# This speeds up the node startup time
-if [ -z "$(ls -A $AVALANCHEGO_DATA_DIR/db/)" ]; then
-    wget -O $AVALANCHEGO_DATA_DIR/fuji-latest.tar https://avalanchego-public-database.avax-test.network/p-chain/avalanchego/data-tar/latest.tar
-    tar -xvf "$AVALANCHEGO_DATA_DIR/fuji-latest.tar" -C $AVALANCHEGO_DATA_DIR/db/
-fi
 
 # Launch avalanchego with dynamic flags
 /usr/local/bin/avalanchego $EXTRA_FLAGS

@@ -42,3 +42,7 @@ This image supports all AvalancheGo flags via environment variables in the forma
 Flag names should be uppercase with underscores replacing dashes.
 
 The default value of `AVALANCHEGO_PLUGIN_DIR` is set to `/plugins/` in the entrypoint.sh. That's because the subnet evm plugin is located with the name `srEXiWaHuhNyGwPUi444Tu47ZEDwxTWrbQiuD7FmgSAQ6X7Dy` in the `/plugins/` directory.
+
+## signer.key
+If you provide a BLS key in the `BLS_KEY_BASE64` environment variable, it will be written to the `signer.key` file in the `staking` directory.
+
