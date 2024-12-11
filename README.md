@@ -28,11 +28,10 @@ services:
 
 ```
 
-## Tags
+## Recommended Tags
 | Tag | AvalancheGo Version | Subnet-EVM Version |
 |-----|-------------------|-------------------|
 | `v1.12.0_v0.6.12` | v1.12.0 | v0.6.12 |
-| `v1.12.0-fuji_v0.6.12` | v1.12.0-fuji | v0.6.12 |
 
 ## VM ID
 The Subnet-EVM VM ID is hardcoded to `srEXiWaHuhNyGwPUi444Tu47ZEDwxTWrbQiuD7FmgSAQ6X7Dy`

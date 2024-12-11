@@ -28,14 +28,14 @@ if [ -n "${BLS_KEY_BASE64:-}" ]; then
 fi
 
 
+
 # Function to convert ENV vars to flags
 get_avalanchego_flags() {
     local flags=""
-    # Loop through all environment variables
-    while IFS='=' read -r name value; do
-        # Check if variable starts with AVALANCHEGO_
+    while IFS= read -r line; do
+        name="${line%%=*}"
+        value="${line#*=}"
         if [[ $name == AVALANCHEGO_* ]]; then
-            # Convert AVALANCHEGO_DATA_DIR to --data-dir
             flag_name=$(echo "${name#AVALANCHEGO_}" | tr '[:upper:]' '[:lower:]' | tr '_' '-')
             flags+="--$flag_name=$value "
         fi
