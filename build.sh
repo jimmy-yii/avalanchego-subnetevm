@@ -9,19 +9,24 @@ docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 docker buildx create --name mybuilder --use || true
 docker buildx inspect mybuilder --bootstrap
 
-# Fetch latest AvalancheGo versions (excluding master and latest tags)
-# AVALANCHEGO_VERSIONS=($(wget -q -O - "https://hub.docker.com/v2/namespaces/avaplatform/repositories/avalanchego/tags?page_size=20" | grep -o '"name": *"[^"]*' | grep -o '[^"]*$' | grep -v master | grep -v latest))
-
-# Fetch latest Subnet-EVM versions (excluding master and latest tags)
-# SUBNETEVM_VERSIONS=($(wget -q -O - "https://hub.docker.com/v2/namespaces/avaplatform/repositories/subnet-evm/tags?page_size=20" | grep -o '"name": *"[^"]*' | grep -o '[^"]*$' | grep -v master | grep -v latest))
-
 # Architectures
 ARCHITECTURES=("amd64" "arm64")
 
 # Add specific versions
-AVALANCHEGO_VERSIONS+=("v1.12.0")
-SUBNETEVM_VERSIONS+=("v0.6.12")
+AVALANCHEGO_VERSIONS+=("v1.12.0" "v1.12.1")
+SUBNETEVM_VERSIONS+=("v0.6.12" "v0.7.0")
 
+# Pull AvalancheGo images first
+for avalanche_version in "${AVALANCHEGO_VERSIONS[@]}"; do
+  echo "Pulling AvalancheGo ${avalanche_version}"
+  docker pull "avaplatform/avalanchego:${avalanche_version}"
+done
+
+# Pull Subnet-EVM images first 
+for subnet_version in "${SUBNETEVM_VERSIONS[@]}"; do
+  echo "Pulling Subnet-EVM ${subnet_version}"
+  docker pull "avaplatform/subnet-evm:${subnet_version}"
+done
 
 # Modified build process using buildx
 for avalanche_version in "${AVALANCHEGO_VERSIONS[@]}"; do

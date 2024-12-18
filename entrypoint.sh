@@ -9,16 +9,6 @@ if [ -z "${AVALANCHEGO_PLUGIN_DIR:-}" ]; then
     export AVALANCHEGO_PLUGIN_DIR="/plugins/"
 fi
 
-
-# This speeds up the node startup time
-# mkdir -p $AVALANCHEGO_DATA_DIR/db/
-# if [ -z "$(ls -A $AVALANCHEGO_DATA_DIR/db/)" ]; then
-#     echo "Downloading latest testnet P-Chain data..."
-#     wget -q -O $AVALANCHEGO_DATA_DIR/fuji-latest.tar https://avalanchego-public-database.avax-test.network/p-chain/avalanchego/data-tar/latest.tar
-#     echo "Extracting latest testnet P-Chain data..."
-#     tar -xf "$AVALANCHEGO_DATA_DIR/fuji-latest.tar" -C $AVALANCHEGO_DATA_DIR/db/
-# fi
-
 # Write BLS key if provided
 if [ -n "${BLS_KEY_BASE64:-}" ]; then
     mkdir -p "$AVALANCHEGO_DATA_DIR/staking"

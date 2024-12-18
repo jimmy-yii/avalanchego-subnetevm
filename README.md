@@ -9,7 +9,7 @@ Use at your own risk. Hopefully envconfig will be supported by avalanchego soon,
 services:
   node0:
     container_name: node0
-    image: containerman17/avalanchego-subnetevm:v1.12.0_v0.6.12
+    image: containerman17/avalanchego-subnetevm:v1.12.1_v0.7.0
     volumes:
       - ./data/:/data/
     network_mode: host
@@ -31,7 +31,7 @@ services:
 ## Recommended Tags
 | Tag | AvalancheGo Version | Subnet-EVM Version |
 |-----|-------------------|-------------------|
-| `v1.12.0_v0.6.12` | v1.12.0 | v0.6.12 |
+| `v1.12.1_v0.7.0` | v1.12.1 | v0.7.0 |
 
 ## VM ID
 The Subnet-EVM VM ID is hardcoded to `srEXiWaHuhNyGwPUi444Tu47ZEDwxTWrbQiuD7FmgSAQ6X7Dy`

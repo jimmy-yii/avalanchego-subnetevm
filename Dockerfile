@@ -1,5 +1,5 @@
-ARG SUBNETEVM_VERSION
-ARG AVALANCHEGO_VERSION
+ARG SUBNETEVM_VERSION=wrong_tag_to_supress_warning
+ARG AVALANCHEGO_VERSION=wrong_tag_to_supress_warning
 
 FROM avaplatform/avalanchego:${AVALANCHEGO_VERSION} AS avalanchego
 FROM avaplatform/subnet-evm:${SUBNETEVM_VERSION} AS subevm
