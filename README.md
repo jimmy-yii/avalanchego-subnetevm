@@ -3,28 +3,20 @@ A wrapper around the original AvalancheGo container image with improved configur
 
 Use at your own risk. Hopefully envconfig will be supported by avalanchego soon, making this image obsolete.
 
-## Example docker-compose.yml
+## Example command
 
-```yaml
-services:
-  node0:
-    container_name: node0
-    image: containerman17/avalanchego-subnetevm:v1.12.1_v0.7.0
-    volumes:
-      - ./data/:/data/
-    network_mode: host
-    user: "${CURRENT_UID}:${CURRENT_GID}"
-    environment:
-      # These AVALANCHEGO_* ENV vars are not supported by avalanchego by default, we handle them in the entrypoint.sh
-      - AVALANCHEGO_CHAIN_CONFIG_DIR=/data/chains
-      - AVALANCHEGO_NETWORK_ID=fuji
-      - AVALANCHEGO_DATA_DIR=/data/node0
-      - AVALANCHEGO_PLUGIN_DIR=/plugins/
-      - AVALANCHEGO_HTTP_PORT=9650
-      - AVALANCHEGO_STAKING_PORT=9651
-      - AVALANCHEGO_TRACK_SUBNETS=${AVALANCHEGO_TRACK_SUBNETS}
-      - AVALANCHEGO_HTTP_ALLOWED_HOSTS=*
-      - AVALANCHEGO_HTTP_HOST=0.0.0.0
+```bash
+docker run -it -d \
+  --name avalanchego \
+  --network host \
+  -v ~/.avalanchego:/home/avalanche/.avalanchego \
+  -e AVALANCHEGO_NETWORK_ID=fuji \
+  -e AVALANCHEGO_HTTP_ALLOWED_HOSTS=* \
+  -e AVALANCHEGO_HTTP_HOST=0.0.0.0 \
+  -e AVALANCHEGO_PARTIAL_SYNC_PRIMARY_NETWORK=true \
+  -e HOME=/home/avalanche \
+  --user $(id -u):$(id -g) \
+  containerman17/avalanchego-subnetevm:v1.12.1_v0.7.0
 
 ```
 
