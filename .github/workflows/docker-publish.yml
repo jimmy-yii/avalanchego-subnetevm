@@ -3,8 +3,8 @@ name: Docker Build and Publish
 on:
   push:
     branches: [ "main" ]
-  # Optional: Also trigger on tags
-  tags: [ 'v*.*.*' ]
+    # Correct tags trigger structure
+    tags: [ 'v*.*.*' ]
 
 env:
   REGISTRY: ghcr.io
