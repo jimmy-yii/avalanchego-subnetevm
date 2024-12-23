@@ -30,7 +30,7 @@ RUN echo "Downloading subnet-evm version ${SUBNETEVM_VERSION} for ${TARGETARCH}"
 FROM debian:bookworm-slim
 
 COPY --from=avalanchego /avalanchego/build/avalanchego /usr/local/bin/avalanchego
-COPY --from=subevm_builder /subnet-evm/subnet-evm /plugins/srEXiWaHuhNyGwPUi444Tu47ZEDwxTWrbQiuD7FmgSAQ6X7Dy
+COPY --from=subevm_builder /subnet-evm/subnet-evm /plugins/pJhESEb9cYz1zDrhtdiP3MDu3GRpy772JL7JbWDSQViYSYXcT
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
