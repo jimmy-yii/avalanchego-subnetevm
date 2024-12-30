@@ -3,11 +3,13 @@ version: '3.8'
 services:
   node0:
     container_name: avalanchego-subnetevm-node0
-    image: ghcr.io/jimmy-yii/avalanchego-subnetevm:v1.12.0_v0.7.0
+    image: ghcr.io/jimmy-yii/avalanchego-subnetevm:v1.12.1_v0.7.0
     volumes:
       - ./data:/data
-    network_mode: host
     user: "${CURRENT_UID}:${CURRENT_GID}"
+    ports:
+      - 9650:9650
+      - 9651:9651
     environment:
       - AVALANCHEGO_CHAIN_CONFIG_DIR=/data/config
       - AVALANCHEGO_NETWORK_ID=fuji
@@ -18,6 +20,8 @@ services:
       - AVALANCHEGO_TRACK_SUBNETS=6vLU8FRMJVda5V5xnh1dyaGLZiE94eZ12pXubUpuPLAZaPmAu
       - AVALANCHEGO_HTTP_ALLOWED_HOSTS=*
       - AVALANCHEGO_HTTP_HOST=0.0.0.0
+      - AVALANCHEGO_BOOTSTRAP_IDS=NodeID-v5SPrLFxbXzxyFp78GdKPqjrn7m6UFnN
+      - AVALANCHEGO_BOOTSTRAP_IPS=34.231.229.159:9651
       - AVALANCHEGO_PUBLIC_IP_RESOLUTION_SERVICE=ifconfigme
       - AVALANCHEGO_PARTIAL_SYNC_PRIMARY_NETWORK=true
       - AVALANCHEGO_STAKING_TLS_KEY_FILE_CONTENT=LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JR0hBZ0VBTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEJHMHdhd0lCQVFRZ0FMOHhiU3htZlpmRzY5b0kKSWVMU3pIQ3J3dU1GTEsxaGt3R0NZYmV6NjZhaFJBTkNBQVFIVlVKUjJSdGNWck5WR2FKb0lkV0kxZkNqMHVpYgpieEpmL1hLQjFtcHBxbGQ2dXFTd1NIRlJDbVN5RmhXenZ5d1JSTlBMUDBaSyt6dXRHb2xMZ1Q0ZAotLS0tLUVORCBQUklWQVRFIEtFWS0tLS0tCg==

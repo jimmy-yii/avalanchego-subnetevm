@@ -47,4 +47,5 @@ jobs:
           build-args: |
             AVALANCHEGO_VERSION=${{ matrix.avalanchego }}
             SUBNETEVM_VERSION=${{ matrix.subnetevm }}
+            BLOCKCHAIN_ID=2TyJdeYSxVAukD3DX2m8oaLJFN2BBCfLkggpCrBYfzMjnVFxBP
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ matrix.avalanchego }}_v${{ matrix.subnetevm }}

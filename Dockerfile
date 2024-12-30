@@ -32,6 +32,10 @@ FROM debian:bookworm-slim
 COPY --from=avalanchego /avalanchego/build/avalanchego /usr/local/bin/avalanchego
 COPY --from=subevm_builder /subnet-evm/subnet-evm /plugins/pJhESEb9cYz1zDrhtdiP3MDu3GRpy772JL7JbWDSQViYSYXcT
 
+# Create directory and copy config folder
+RUN mkdir -p /data/config
+COPY config/${BLOCKCHAIN_ID} /data/config/${BLOCKCHAIN_ID}
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
