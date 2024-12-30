@@ -35,8 +35,8 @@ COPY --from=subevm_builder /subnet-evm/subnet-evm /plugins/pJhESEb9cYz1zDrhtdiP3
 ARG BLOCKCHAIN_ID
 
 # Create directory and copy config folder
-RUN mkdir -p /data/config
-COPY config/${BLOCKCHAIN_ID} /data/config/${BLOCKCHAIN_ID}
+RUN mkdir -p /config
+COPY ./config/${BLOCKCHAIN_ID} /config/${BLOCKCHAIN_ID}
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

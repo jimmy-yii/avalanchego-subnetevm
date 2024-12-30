@@ -11,7 +11,7 @@ services:
       - 9650:9650
       - 9651:9651
     environment:
-      - AVALANCHEGO_CHAIN_CONFIG_DIR=/data/config
+      - AVALANCHEGO_CHAIN_CONFIG_DIR=/config
       - AVALANCHEGO_NETWORK_ID=fuji
       - AVALANCHEGO_DATA_DIR=/data
       - AVALANCHEGO_PLUGIN_DIR=/plugins/ 
